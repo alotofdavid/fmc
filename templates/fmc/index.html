@@ -1,15 +1,54 @@
+<head>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<style type="text/css">
+body {
+  padding-top: 50px;
+}
+a:hover {
+    text-decoration:none;
+}
+</style>
+</head>
+    
+<body>
+        
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Weekly FMC Challenge</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
 {% if latest_scrambles %}
-    <ul>
-    {% for scramble in latest_scrambles %}
-        {% if forloop.first %}
-            <p>The current scramble for the weekly FMC challenge is: </p>
-		  <div id="curr_scramble"><a href"./dadams/{{ scramble.id }}/">    {{ scramble.scramble }}</a></div>
-          <p>Previous Scrambles:</p>
-        {% else %}
-            <li><a href="./dadams/{{ scramble.id }}/">{{ scramble.scramble }}</a></li>
-        {% endif %}
-    {% endfor %}
-    </ul>
+{% for scramble in latest_scrambles %}
+    {% if forloop.first %}
+        <div class="jumbotron text-center"><h1><a href="./{{ scramble.id }}/">{{ scramble.scramble }}</a></h1></div>
+        <div class = "container">
+        <div class="row"><div class="col-lg-6"><h2>What is the Weekly FMC Challenge?</h2>
+        <p>The Weekly FMC Challenge was made for <a href="http://www.speedsolving.com">the SpeedSolving.com web forums</a> so that fewest moves enthusiasts can regularly compete with others and share solutions to the same scramble in order to learn from each other. Click the scramble to submit a solution!</p></div>
+        <div class="col-lg-6">
+        <h2>Previous Scrambles:</h2>
+        <ul class="list-group">
+    {% else %}
+        <li class="list-group-item"><a href="./{{ scramble.id }}/">{{ scramble.scramble }}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+</div>
+</div></div>
 {% else %}
     <p>No scrambles have been posted.</p>
 {% endif %}
+
+</body>
