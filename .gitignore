@@ -34,4 +34,4 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-weekly_fmc/settings.py
+settings.py
