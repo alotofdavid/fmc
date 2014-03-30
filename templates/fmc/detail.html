@@ -1,4 +1,6 @@
 <head>
+<title>FMC Challenge - Scramble {{ scramble.id }}</title>
+
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <style type="text/css">
 body {
@@ -47,17 +49,21 @@ body {
 	<div class="jumbotron text-center"><h1>{{ scramble.scramble }}</h1></div>
 	<div class="container">
   <div class="row"><div class="col-lg-6">
+    {% load url from future %}
 	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 	<h3>Submit your solution below</h3>
-	<form action="{% url submit scramble.id %}" method="post">
+	<form action="{% url 'submit' scramble.id %}" method="post">
 	{% csrf_token %}
   <div class="input-group input-group-lg">
-  <span class="input-group-addon">Name</span><input class="form-control" type="text" name="name" size="50%"/> 
+  <span class="input-group-addon">Name</span>
+  <input class="form-control" type="text" value="{{ name }}" name="name" size="50%"/> 
   </div><br>
   <div class="input-group input-group-lg">
-	<span class="input-group-addon">Solution</span><input class="form-control" type="text" name="solution" size="50%"/> </div><br>
+	<span class="input-group-addon">Solution</span>
+  <input class="form-control" type="text" value="{{ solution }}" name="solution" size="50%"/> </div><br>
   <div class="input-group input-group-lg">
-  <span class="input-group-addon">Comments</span><input class="form-control" type="text" name="comments" size="50%"/> </div><br>
+  <span class="input-group-addon">Comments</span>
+  <input class="form-control" type="text" value="{{ comments }}" name="comments" size="50%"/> </div><br>
 	<button type="submit" value="Submit" class="btn btn-lg btn-default">Submit</button>
   <br><br>
 	</form>

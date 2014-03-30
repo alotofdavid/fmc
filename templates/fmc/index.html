@@ -1,4 +1,6 @@
 <head>
+<title>FMC Challenge</title>
+
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 <script type="text/javascript">
@@ -52,6 +54,10 @@ a:hover {
     {% if forloop.first %}
         <div class="jumbotron text-center"><h1><a href="./{{ scramble.id }}/">{{ scramble.scramble }}</a></h1></div>
         <div class = "container">
+        {% if sub %}
+          <h3> Your {{ sub.move_count }} move solution was submitted successfully! </h3>
+          <h3> {{ sub.solution }} </h3>
+        {% endif %}
         <div class="row"><div class="col-lg-6"><h2>What is the Weekly FMC Challenge?</h2>
         <p>The Weekly FMC Challenge was made for <a href="http://www.speedsolving.com">the SpeedSolving.com web forums</a> so that fewest moves enthusiasts can regularly compete with others and share solutions to the same scramble in order to learn from each other. Click the scramble to submit a solution!</p></div>
         <div class="col-lg-6">
