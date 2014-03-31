@@ -1,12 +1,9 @@
 <head>
-<title>FMC Challenge - Results</title>
+<title>FMC Challenge - Submission Successful</title>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <style type="text/css">
 body {
   padding-top: 50px;
-}
-a:hover {
-  text-decoration: none;
 }
 </style>
 
@@ -42,35 +39,17 @@ a:hover {
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li><a href="http://www.ocf.berkeley.edu/~dadams/fmc/">Home</a></li>
-        <li><a href="#">Results</a></li>
+        <li><a href="http://www.ocf.berkeley.edu/~dadams/fmc/{{ scramble.id}}/results/">Results</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
 </div>
-  
-	<div class="jumbotron text-center"><h1><a href="../">{{ scramble.scramble }}</a></h1></div>
-	<div class="container">
-  {% if not scramble.current %}
-    <h3>Here are the submissions from the week starting {{ scramble.pub_date }}.</h3>
-    {% if submissions %}
-      <ul class="list-group">
-    	{% for sub in submissions %}
-      <li class="list-group-item">{{ sub }}</li>
-      {% endfor %}
-    </ul>
-    {% else %}
-      There are no submissions!
-    {% endif %}
-  {% else %}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <h3 class="text-center">This challenge doesn't end until Friday night at midnight (PST). <a href="../">Click here</a> to participate. New challenges are posted every Friday at midnight (PST).</h3>
-    {% endif %}
+  <div class = "text-center">
+  <div class="jumbotron"><h1>{{ scramble.scramble }}</h1></div>
+  <div class="container">
+    <h2>Congratulations, {{ sub.name }}. Your {{ sub.move_count }} move solution was submitted succesfully!</h3>
+    <h3>{{ sub.solution }}</h3>
+    <h3> Check back this Saturday to see the results. </h3>
   </div>
-  {% endif %}
+</div>
 </body>
