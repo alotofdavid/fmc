@@ -66,6 +66,10 @@ def submit(request, scramble_id):
 				'error_message': "{sol} is not a valid algorithm.".format(sol=sol),
 				}, context_instance=RequestContext(request))
 
+def register(request):
+	template = loader.get_template('fmc/register.html')
+	return HttpResponse(template.render(RequestContext(request)))
+
 def results(request, scramble_id):
 	s = get_object_or_404(Scramble, pk=scramble_id)
 	submissions = s.submission_set.all()

@@ -1,6 +1,6 @@
 #Django settings for weekly_fmc project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -11,7 +11,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'dadams',                      # Or path to database file if using sqlite3.
         'USER': 'dadams',                      # Not used with sqlite3.
         'PASSWORD': '0LZdOgmTMm4nquFtgHir',                  # Not used with sqlite3.
@@ -112,7 +112,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "weekly_fmc/templates"
+    "templates"
 )
 
 INSTALLED_APPS = (
@@ -134,6 +134,8 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+LOGIN_REDIRECT_URL = 'fmc/profile.html'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
