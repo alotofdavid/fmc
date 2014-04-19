@@ -1,76 +1,50 @@
-<head>
-<title>FMC Challenge - Scramble {{ scramble.id }}</title>
+{% extends "base.html" %}
 
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<style type="text/css">
-body {
-  padding-top: 50px;
-}
-</style>
+{% block title %} FMC Challenge - Scramble {{ scramble.id }} {% endblock %}
 
-<script type="text/javascript">
-  
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-47491324-1']);
-    _gaq.push(['_trackPageview']);
-  
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  
-  </script>
-
-
-</head>
-    
-<body>
-        
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="http://www.ocf.berkeley.edu/~dadams/fmc/">Weekly FMC Challenge<sup>BETA</sup></a>
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="http://www.ocf.berkeley.edu/~dadams/fmc/">Home</a></li>
-        <li><a href="http://www.ocf.berkeley.edu/~dadams/fmc/{{ scramble.id}}/results/">Results</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</div>
-  
+{% block content %}
 	<div class="jumbotron text-center"><h1>{{ scramble.scramble }}</h1></div>
-	<div class="container">
-  <div class="row"><div class="col-lg-6">
-    {% load url from future %}
-	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-	<h3>Submit your solution below</h3>
-	<form action="{% url 'submit' scramble.id %}" method="post">
-	{% csrf_token %}
-  <div class="input-group input-group-lg">
-  <span class="input-group-addon">Name</span>
-  <input class="form-control" type="text" value="{{ name }}" name="name" size="50%"/> 
-  </div><br>
-  <div class="input-group input-group-lg">
-	<span class="input-group-addon">Solution</span>
-  <input class="form-control" type="text" value="{{ solution }}" name="solution" size="50%"/> </div><br>
-  <div class="input-group input-group-lg">
-  <span class="input-group-addon">Comments</span>
-  <input class="form-control" type="text" value="{{ comments }}" name="comments" size="50%"/> </div><br>
-	<button type="submit" value="Submit" class="btn btn-lg btn-default">Submit</button>
-  <br><br>
-	</form>
-  </div>
-  <div class="col-lg-6">
-  <h3>Check the Scramble</h3>
-  <p>I recommend you check out a picture of the scramble at <a href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}">alg.cubing.net</a> to make sure you didn't make any mistakes when you scrambled your own cube. Also, make sure to check your solution before submitting. If your solution does not solve the cube, your submission <b>will not</b> be counted!</p>
-  
-</div>
-</body>
+    <div class="row">
+      <div class="col-lg-6">
+      {% load url from future %}
+    	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    	<h3>Submit your solution below</h3>
+      <form class="form-horizontal" action="{% url 'submit' scramble.id %}" method="POST">
+      {% csrf_token %}
+      <fieldset>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="name">Name</label>
+          <div class="col-sm-10">
+            <input type="text" id="name" name="name" value="{{ name }}" class="form-control" size="50%">
+          </div>
+        </div>
+     
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="solution">Solution</label>
+            <div class="col-sm-10">
+            <textarea rows="3" id="solution" name="solution" value="{{ solution }}" class="form-control"></textarea>
+            </div>
+        </div>
+     
+        <div class="form-group">
+          <label class="col-sm-2 control-label"  for="comments">Comments</label>
+          <div class="col-sm-10">
+          <textarea rows="3" id="comments" name="comments" value="{{ comments }}" class="form-control"></textarea>
+        </div>
+        </div>
+     
+        <div class="form-group">
+          <!-- Button -->
+            <button class="btn btn-success">Submit</button>
+        </div>
+      </fieldset>
+      </form>
+      <br><br>
+      </div>
+      <div class="col-lg-6">
+      <h3>Check the Scramble</h3>
+      <p>I recommend you check out a picture of the scramble at <a href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">alg.cubing.net</a> to make sure you didn't make any mistakes when you scrambled your own cube. Also, make sure to check your solution before submitting. If your solution does not solve the cube, your submission <b>will not</b> be counted!</p>
+      </div>
+    </div>  
+{% endblock %}
+
