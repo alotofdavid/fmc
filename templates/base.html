@@ -48,7 +48,7 @@ a:hover {
       </ul>
       <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
-            <li><a href="/profile/">Welcome, {{ user.username }} <i class="fa fa-cog"></i></a></li>
+            <li><a href="/profile/{{ user.id }}/">Welcome, {{ user.username }} <i class="fa fa-cog"></i></a></li>
             <li><a href="/logout/">Logout</a></li>
           {% else %}
             <li><a href="/register/">Sign Up</a></li> 

@@ -4,10 +4,11 @@
 
 {% block content %}
 	<div class="jumbotron text-center"><h1>{{ scramble.scramble }}</h1></div>
+  This scramble will run from {{ scramble.pub_date.date }} to {{ scramble.end_date.date }}
     <div class="row">
       <div class="col-lg-6">
       {% load url from future %}
-    	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    	{% if error_message %}<p><strong>{{ error_message|safe }}</strong></p>{% endif %}
     	<h3>Submit your solution below</h3>
       <form class="form-horizontal" action="{% url 'submit' scramble.id %}" method="POST">
       {% csrf_token %}
@@ -34,8 +35,9 @@
         </div>
      
         <div class="form-group">
-          <!-- Button -->
+          <div class="col-sm-offset-2 col-sm-10">
             <button class="btn btn-success">Submit</button>
+          </div>
         </div>
       </fieldset>
       </form>

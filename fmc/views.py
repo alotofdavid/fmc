@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from rubik import *
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 import datetime
 
@@ -45,6 +46,11 @@ def submit(request, scramble_id):
 	context['name'] = name
 	context['solution'] = sol
 	context['comments'] = comments
+
+	if User.objects.filter(username=name).count() and name != request.user.username:
+		context['name'] = ""
+		context['error_message'] = "That name is registered. Please <a href=\"/login/\">log in</a> or choose a different name!"
+		return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
 	if not sol or not name:
 		context['error_message'] = "Please complete all the fields."
 		return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
@@ -56,7 +62,11 @@ def submit(request, scramble_id):
 				move_count = alg.num_moves()
 				sub = Submission(solution=sol, name=name,scramble_id=scramble_id, comments=comments, move_count=move_count)
 				sub.save()
-				latest_scrambles = Scramble.objects.all().order_by('-pub_date')[:5]
+				
+				if (name == request.user.username):
+					sub.user_id = request.user.id
+					sub.save()	
+
 				return render_to_response('fmc/submit.html', {
 					'sub': sub,
 					'scramble': s,

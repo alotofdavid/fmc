@@ -1,5 +1,42 @@
 {% extends "base.html" %}
-{% block title %}FMC Challenge - Profile{% endblock %}
+{% block title %}FMC Challenge - {{ profile_user.username }}'s Profile{% endblock %}
 {% block content %} 
-swag
+<div container> 
+<br>
+	<h2>{{ profile_user.username }}
+	{% if user == profile_user %}
+	<a href="/profile/edit/"><i class="fa fa-cog"></i></a>
+	{% endif %}
+
+
+	</h2>
+    {% if submissions %}
+      <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Move Count</th>
+          <th>Scramble</th>
+          <th>Solution</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sub in submissions %}
+        {% if not sub.scramble.current %}
+        <tr>
+          <td>{{ sub.move_count }}</td>
+          <td><a href="/{{ sub.scramble.id }}/">{{ sub.scramble }}</td>
+          <td><a href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ sub.scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
+          <td>{{ sub.comments|linebreaks }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+      </table>
+    {% else %}
+      This user has not participated in any challlenges yet!
+    {% endif %}
+<br>
+Note that submissions for challenges that are still active will not be shown until after the challenge has ended! 
+</div>
 {% endblock %}
