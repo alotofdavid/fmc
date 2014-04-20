@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}FMC Challenge - edit {{ user.username }}'s Profile{% endblock %}
+{% block content %} 
+<div container> 
+<br>
+	<h2>{{ user.username }}</h2>
+<row>
+<div class="col-sm-6">
+ {% load url from future %}
+  <br>
+
+<form class="form-horizontal" action='/profile/edit/' method="POST">
+  {% csrf_token %}
+  <fieldset>
+    <div id="legend">
+      <legend class="">Change Password</legend>
+    </div>
+  <p> {{ error_message }} </p>
+    <div class="form-group">
+      <!-- Username -->
+      <label class="col-sm-2 control-label" for="current_pass">Current Password</label>
+      <div class="col-sm-10">
+        <input type="password" id="current_pass" name="current_pass" placeholder="" class="form-control">
+        <p class="help-block">{{ error_user }}</p>
+      </div>
+    </div>
+ 
+    <div class="form-group">
+      <!-- Password-->
+      <label class="col-sm-2 control-label" for="new_pass">New Password</label>
+        <div class="col-sm-10">
+        <input type="password" id="new_pass" name="new_pass" placeholder="" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+      <!-- Password-->
+      <label class="col-sm-2 control-label" for="new_pass2">Confirm New Password</label>
+        <div class="col-sm-10">
+        <input type="password" id="new_pass2" name="new_pass2" placeholder="" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success">Change Password</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+</div>  
+</row> 
+</div>
+{% endblock %}

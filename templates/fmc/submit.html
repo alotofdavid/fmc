@@ -8,7 +8,7 @@
   <div class="jumbotron"><h1>{{ scramble.scramble }}</h1></div>
   <div class="container">
     <h2>Congratulations, {{ sub.name }}. Your {{ sub.move_count }} move solution was submitted succesfully!</h3>
-    <h3>{{ sub.solution }}</h3>
+    <h3>{{ sub.solution|linebreaks }}</h3>
     <h3> Check back this Saturday to see the results. </h3>
   </div>
 </div>

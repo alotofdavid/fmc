@@ -5,10 +5,10 @@
 
 {% block content %}
 
-	<div class="jumbotron text-center"><h1><a href="../">{{ scramble.scramble }}</a></h1></div>
+	<div class="jumbotron text-center"><h1><a href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">{{ scramble.scramble }}</a></h1></div>
 
   {% if not scramble.current %}
-    <h3>Here are the submissions from the week starting {{ scramble.pub_date }}.</h3>
+    <h3>Results - This scramble ran from {{ scramble.pub_date.date }} to {{ scramble.end_date.date }}.</h3>
     {% if submissions %}
       <table class="table table-striped">
       <thead>
@@ -25,9 +25,16 @@
         <tr>
           <td>{{ forloop.counter }}</td>
           <td>{{ sub.move_count }}</td>
-          <td>{{ sub.name }}</td>
-          <td>{{ sub.solution }}</td>
-          <td>{{ sub.comments }}</td>
+          <td>
+          
+          {% if sub.user %}
+          <a href="/profile/{{ sub.user.id }}/">{{ sub.name }}</a>
+          {% else %}
+          {{ sub.name }}
+          {% endif %}
+          </td>
+          <td><a href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
+          <td>{{ sub.comments|linebreaks }}</td>
         </tr>
         {% endfor %}
       </tbody>

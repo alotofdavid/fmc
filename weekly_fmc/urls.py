@@ -22,7 +22,9 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'weekly_fmc.views.logout'),
     url(r'^loggedin/$', 'weekly_fmc.views.loggedin'),
     url(r'^invalid/$', 'weekly_fmc.views.invalid'),
-    url(r'^profile/$', 'weekly_fmc.views.profile'),
+    url(r'^profile/(?P<user_id>\d+)/$', 'weekly_fmc.views.profile'),
+    url(r'^profile/edit/$', 'weekly_fmc.views.profile_edit'),
     url(r'^register_success/$', 'weekly_fmc.views.register_success'),
+    url(r'^profile/pass/$', 'weekly_fmc.views.profile_pass'),
 
 )

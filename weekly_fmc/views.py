@@ -6,7 +6,7 @@ from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
 import re
 
-USER_REGEX = re.compile("[:alnum:]*")
+USER_REGEX = re.compile("[:alnum:]+")
 
 def login(request):
 	context = {}
@@ -37,15 +37,51 @@ def logout(request):
 	auth.logout(request)
 	return render_to_response('logout.html')
 
-def profile(request):
+def profile(request, user_id):
 	context = {}
-	populateContext(request,context)
-	context.update(csrf(request))
+	populateContext(request, context)
+	if not User.objects.filter(id=user_id).count():
+		return render_to_response('profile_404.html', context)
+	submissions = request.user.submission_set.all().order_by('move_count')
+	completed_subs = [s for s in submissions if not s.scramble.current()]
+	context['submissions'] = completed_subs
+	context['profile_user'] = User.objects.filter(id=user_id)[0]
 	return render_to_response('profile.html', context)
 
-def register(request):
+def profile_edit(request):
 	context = {}
+	populateContext(request, context)
 	context.update(csrf(request))
+	if request.method == 'POST':
+		username = request.user
+		password = request.POST['current_pass']
+		user = auth.authenticate(username=username, password=password)
+		if user is not None:
+			new_pass = request.POST['new_pass']
+			new_pass2 = request.POST['new_pass2']
+			if new_pass != new_pass2:
+				context['error_message'] = "Passwords do not match!"
+				return render_to_response('profile_edit.html', context)		
+			user.set_password(new_pass)
+			user.save()
+			return HttpResponseRedirect('/profile/pass/')
+		context['error_message'] = "Password is incorrect"
+		return render_to_response('profile_edit.html',context)
+
+	return render_to_response('profile_edit.html', context)
+
+	context = {}
+	populateContext(request, context)
+
+def profile_pass(request):
+	context = {}
+	populateContext(request, context)
+	return render_to_response('profile_pass.html', context)
+
+def register(request):
+	context.update(csrf(request))	
+	context = {}
+
 	if request.method == 'POST':
 		username = request.POST.get('username', '')
 		password = request.POST.get('password', '')
