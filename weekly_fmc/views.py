@@ -42,10 +42,11 @@ def profile(request, user_id):
 	populateContext(request, context)
 	if not User.objects.filter(id=user_id).count():
 		return render_to_response('profile_404.html', context)
-	submissions = request.user.submission_set.all().order_by('move_count')
+	profile_user = User.objects.filter(id=user_id)[0]
+	context['profile_user'] = profile_user
+	submissions = profile_user.submission_set.all().order_by('move_count')
 	completed_subs = [s for s in submissions if not s.scramble.current()]
 	context['submissions'] = completed_subs
-	context['profile_user'] = User.objects.filter(id=user_id)[0]
 	return render_to_response('profile.html', context)
 
 def profile_edit(request):
@@ -79,8 +80,8 @@ def profile_pass(request):
 	return render_to_response('profile_pass.html', context)
 
 def register(request):
-	context.update(csrf(request))	
 	context = {}
+	context.update(csrf(request))
 
 	if request.method == 'POST':
 		username = request.POST.get('username', '')

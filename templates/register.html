@@ -6,7 +6,7 @@
 <br>
 <row>
 <div class="col-sm-6">
-<form class="form-horizontal" action='/register/' method="POST">
+<form class="form-horizontal" action="{% url 'register' %}" method="POST">
 	{% csrf_token %}
   <fieldset>
     <div id="legend">

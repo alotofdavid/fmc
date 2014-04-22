@@ -17,7 +17,7 @@
         <h2>Previous Scramble Results:</h2>
         <ul class="list-group">
     {% else %}
-        <li class="list-group-item"><a href="/{{ scramble.id }}/">{{ scramble.scramble }}</a></li>
+        <li class="list-group-item"><a href="{{ scramble.id }}/">{{ scramble.scramble }}</a></li>
     {% endif %}
 {% endfor %}
 </ul>

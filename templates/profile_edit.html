@@ -9,7 +9,7 @@
  {% load url from future %}
   <br>
 
-<form class="form-horizontal" action='/profile/edit/' method="POST">
+<form class="form-horizontal" action="{% url 'profile_edit' %}" method="POST">
   {% csrf_token %}
   <fieldset>
     <div id="legend">
