@@ -4,7 +4,7 @@
 <div class="container">
 <br>
 <h4>
-Your password has been reset. <a href="/profile/{{ user.id }}/">Click here</a> to return to your profile.
+Your password has been changed. <a href="{% url 'profile' user.id %}">Click here</a> to return to your profile.
 </h4>
 </div>
 {% endblock %}

@@ -28,7 +28,7 @@
           <td>
           
           {% if sub.user %}
-          <a href="/profile/{{ sub.user.id }}/">{{ sub.name }}</a>
+          <a href="{% url 'profile' sub.user.id %}">{{ sub.name }}</a>
           {% else %}
           {{ sub.name }}
           {% endif %}
@@ -41,16 +41,6 @@
       </table>
     {% else %}
       There we're no submissions for this challenge!
-    {% endif %}
-  {% else %}
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <h3 class="text-center">This challenge doesn't end until Friday night at midnight (PST). <a href="../">Click here</a> to participate. New challenges are posted every Friday at midnight (PST).</h3>
     {% endif %}
   {% endif %}
 {% endblock %}

@@ -8,7 +8,7 @@
  {% load url from future %}
   <br>
   {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form class="form-horizontal" action='/auth/' method="POST">
+<form class="form-horizontal" action="{% url 'auth_view' %}" method="POST">
   {% csrf_token %}
   <fieldset>
     <div id="legend">
@@ -34,7 +34,7 @@
  
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-success">Log In</button> or <a href="/register/">click here</a> to create an account.
+          <button type="submit" class="btn btn-success">Log In</button> or <a href="{% url 'register' %}">click here</a> to create an account.
       </div>
     </div>
   </fieldset>
