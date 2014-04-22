@@ -1,5 +1,5 @@
 *.py[cod]
-settings.py
+weekly_fmc/settings.py
 
 # C extensions
 *.so
