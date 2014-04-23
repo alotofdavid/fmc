@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% block title %} Weekly FMC - About {% endblock %}
+
+
+{% block content %}
+<br>
+<div class="row"><div class="col-lg-6"><h2>What is the Weekly FMC?</h2>
+<p>The Weekly Fewest Moves Challenge (FMC) was made for <a href="http://www.speedsolving.com">the SpeedSolving.com web forums</a> so that fewest moves enthusiasts can regularly compete with others and share solutions to the same scramble in order to learn from each other.</p>
+<p>Although it is not required to submit a solution, <a href="{% url 'register' %}">creating an account</a> allows you to reserve a name. Creating accounts will also create a profile for you that lists all of your submissions. </p>
+</div>
+<div class="col-lg-6"><h2>Frequently Asked Questions</h2>
+<h4>What is FMC?</h4>
+<p>FMC stands for <b>F</b>ewest <b>M</b>oves <b>C</b>hallenge. The challenge is to find an algorithm that will solve the cube based on the scramble provided for you.</p>
+{% endblock %}

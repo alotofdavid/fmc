@@ -21,6 +21,12 @@ def index(request):
 	context['latest_scrambles'] = latest_scrambles
 	return render_to_response('fmc/index.html', context)
 
+def about(request):
+	context = {}
+	context.update(csrf(request))
+	populateContext(request,context)
+	return render_to_response('fmc/about.html', context)
+
 def detail(request, scramble_id):
 	context = {}
 	populateContext(request,context)
