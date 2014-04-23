@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse
 import re
 
-USER_REGEX = re.compile("[:alnum:]+")
+USER_REGEX = re.compile("^[a-zA-z0-9]+$")
 
 def login(request):
 	context = {}
@@ -21,7 +21,7 @@ def auth_view(request):
 	user = auth.authenticate(username=username, password=password)
 	if user is not None: 
 		auth.login(request, user)
-		return return HttpResponseRedirect(reverse('index'))
+		return HttpResponseRedirect(reverse('index'))
 	else:
 		return HttpResponseRedirect(reverse('invalid'))
 
@@ -66,7 +66,7 @@ def profile_edit(request):
 				return render_to_response('profile_edit.html', context)		
 			user.set_password(new_pass)
 			user.save()
-			return HttpResponseRedirect('/profile/pass/')
+			return HttpResponseRedirect(reverse('profile_pass'))
 		context['error_message'] = "Password is incorrect"
 		return render_to_response('profile_edit.html',context)
 
@@ -90,8 +90,10 @@ def register(request):
 		password_confirm = request.POST.get('password_confirm', '')
 		if password == '' or username == '' or password_confirm == '':
 			context['error_message'] = "Please complete all the fields."
+			return render_to_response('register.html',context)
 		if User.objects.filter(username=username).count():
 			context['error_user'] = "Username is already taken"
+			return render_to_response('register.html',context)
 		if password != password_confirm:
 			context['error_pw'] = "Passwords do not match."
 			return render_to_response('register.html',context)
@@ -101,7 +103,7 @@ def register(request):
 
 		user = User.objects.create_user(username=username, password=password)
 		user.save()
-		return HttpResponseRedirect('/register_success/')
+		return HttpResponseRedirect(reverse('register_success'))
 
 	return render_to_response('register.html', context)
 
