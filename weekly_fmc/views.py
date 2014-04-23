@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from django.contrib.auth.forms import UserCreationForm
+from django.core.urlresolvers import reverse
 import re
 
 USER_REGEX = re.compile("[:alnum:]+")
@@ -20,9 +21,9 @@ def auth_view(request):
 	user = auth.authenticate(username=username, password=password)
 	if user is not None: 
 		auth.login(request, user)
-		return HttpResponseRedirect('/')
+		return return HttpResponseRedirect(reverse('index'))
 	else:
-		return HttpResponseRedirect('/invalid')
+		return HttpResponseRedirect(reverse('invalid'))
 
 def loggedin(request):
 	return render_to_response('loggedin.html', {'full_name': request.user.username})
