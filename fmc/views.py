@@ -32,6 +32,8 @@ def detail(request, scramble_id):
 	populateContext(request,context)
 	context.update(csrf(request))
 	s = get_object_or_404(Scramble, pk=scramble_id)
+	if (request.user):
+		context['name'] = request.user.username
 	context['scramble'] = s
 	if s.current():
 		return render_to_response('fmc/detail.html', context)
