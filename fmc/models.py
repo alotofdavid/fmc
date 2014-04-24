@@ -19,8 +19,8 @@ class Submission(models.Model):
 	def __unicode__(self):
 		return self.solution
 	scramble = models.ForeignKey(Scramble)
-	user = models.ForeignKey(User, blank=True)
+	user = models.ForeignKey(User, blank=True, null=True)
 	move_count = models.IntegerField()
 	name = models.CharField(max_length=50)
 	solution = models.TextField(max_length=500)
-	comments = models.TextField(max_length=500, blank=True)
+	comments = models.TextField(max_length=500, blank=True, null=True)
