@@ -1,11 +1,13 @@
 import re
+from random import randint as r
 SOLUTION_REGEX = re.compile("^[RLUDFBMES' 2xyz]*$")
-MOVE_REGEX = re.compile("^[RLUDFMBESxyz]['2]?$")
+MOVE_REGEX = re.compile("^(R|L|U|D|F|B|M|E|S|x|y|z|r|l|u|d|f|b|Rw|Lw|Dw|Uw|Fw|Bw)['2]?$")
 
 FACE_MOVES = ["U","D","F","B","L","R"]
 SLICE_MOVES = ["M","E","S"]
+WEDGE_MOVES = ["u", "d", "f", "b", "l", "r", "Uw", "Dw", "Fw", "Bw", "Lw", "Rw"]
 ROTATIONS = ["x","y","z"]
-move_dict = {"U":0,"L":1,"F":2,"R":3,"B":4,"D":5, "E":0, "M":1, "S": 2, "x":0, "y":1, "z":2}
+move_dict = {"U":0,"L":1,"F":2,"R":3,"B":4,"D":5, "E":0, "M":1, "S": 2, "x":0, "y":1, "z":2, "u":0, "d":1, "f":2, "b":3, "l":4, "r":5}
 
 
 class Algorithm(object):
@@ -16,7 +18,7 @@ class Algorithm(object):
 		self.moves = []
 		for move in moves:
 			m = Move(move)
-			if m.letter in FACE_MOVES:
+			if m.letter in FACE_MOVES or m.letter in WEDGE_MOVES:
 				self.move_count += 1
 			elif m.letter in SLICE_MOVES:
 				self.move_count += 2
@@ -39,11 +41,21 @@ class Algorithm(object):
 class Move(object):
 	def __init__(self,move):
 		if (len(move)==1):
-			self.letter = move
 			self.num = 1
-		if (len(move)==2):
+			self.letter = move
+		elif (len(move)==2):
 			self.letter = move[:1]
 			rest = move[1:]
+			if rest == "w":
+				self.letter = self.letter.lower()
+				self.num = 1
+			if rest == "'":
+				self.num = 3
+			if rest =="2":
+				self.num = 2
+		elif (len(move)==3):
+			self.letter = move[:1].lower()
+			rest = move[2:]
 			if rest == "'":
 				self.num = 3
 			if rest =="2":
@@ -151,6 +163,32 @@ class Cube(object):
 			self.apply_move(Move("F"))
 			self.apply_move(Move("S'"))
 
+	def rotate_wedge(self, face): 
+		#u / Uw
+		if face == 0: 
+			self.apply_move(Move("U"))
+			self.apply_move(Move("E'"))
+		#d / Dw
+		elif face == 1: 
+			self.apply_move(Move("D"))
+			self.apply_move(Move("E"))
+		#f / Fw
+		elif face == 2:
+			self.apply_move(Move("F"))
+			self.apply_move(Move("S'"))
+		#b / Bw
+		elif face == 3:
+			self.apply_move(Move("B"))
+			self.apply_move(Move("S"))
+		#l / Lw
+		elif face == 4:
+			self.apply_move(Move("L"))
+			self.apply_move(Move("M"))
+		#r / Rw
+		elif face == 5:
+			self.apply_move(Move("R"))
+			self.apply_move(Move("M'"))
+
 	def apply_alg(self, alg):
 		for move in alg.moves:
 			self.apply_move(move)
@@ -159,6 +197,9 @@ class Cube(object):
 		if move.letter in FACE_MOVES:
 			for _ in range(move.num):
 				self.rotate_face(move_dict[move.letter])
+		elif move.letter in WEDGE_MOVES:
+			for _ in range(move.num):
+				self.rotate_wedge(move_dict[move.letter])
 		elif move.letter in SLICE_MOVES:
 			for _ in range(move.num):
 				self.slice(move_dict[move.letter])
@@ -173,6 +214,17 @@ def valid_alg(alg):
 			print("{move} does not match regex".format(move=move))
 			return False
 	return True
+
+# Based on function from http://www.speedsolving.com/forum/showthread.php?25460-My-python-one-liner-scramble-generator/page21
+def gen_scramble(l):
+	scramble = ""
+	m=b=9
+	for u in range(l):
+		c=b;b=m
+		while c+b-4 and m==c or m==b:
+			m=r(0,5)
+		scramble += "URFBLD"[m]+" '2"[r(0,2)]+" "
+	return scramble.replace("  "," ")[:-1]
 
 if __name__ == "__main__":
 	c = Cube()
