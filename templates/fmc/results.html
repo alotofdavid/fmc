@@ -6,7 +6,7 @@
 
 {% block content %}
 
-	<div class="jumbotron text-center"><h1><a href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">{{ scramble.scramble }}</a></h1></div>
+	<div class="jumbotron text-center"><h1><a target="_blank" href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">{{ scramble.scramble }}</a></h1></div>
 
   {% if not scramble.current %}
     <h3>Results - This scramble ran from {{ scramble.pub_date.date }} to {{ scramble.end_date.date }}.</h3>
@@ -34,7 +34,7 @@
           {{ sub.name }}
           {% endif %}
           </td>
-          <td><a href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
+          <td><a target="_blank" href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
           <td>{{ sub.comments|linebreaks }}</td>
         </tr>
         {% endfor %}

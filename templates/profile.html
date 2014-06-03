@@ -28,7 +28,7 @@
         <tr>
           <td>{{ sub.move_count }}</td>
           <td><a href="{% url 'detail' sub.scramble.id %}">{{ sub.scramble }}</td>
-          <td><a href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ sub.scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
+          <td><a target="_blank" href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ sub.scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
           <td>{{ sub.comments|linebreaks }}</td>
         </tr>
         {% endif %}
