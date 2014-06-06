@@ -4,7 +4,18 @@
 {% block title %} Weekly FMC - Scramble {{ scramble.id }} {% endblock %}
 
 {% block content %}
-	<div class="jumbotron text-center"><h1>{{ scramble.scramble }}</h1></div>
+    <div class="jumbotron text-center">
+    <div class="container">
+      <div row>
+        <div class="col-lg-10">
+          <h1><a target="_blank" href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">{{ scramble.scramble }}</a></h1>
+        </div>
+        <div class="col-lg-2">
+          <img src="http://cube.crider.co.uk/visualcube.php?bg=t&fmt=png&size=150&sch=wrgyob&pzl=3&alg={{ scramble.scramble }}">
+        </div>
+      </div>
+    </div>
+    </div>
   This scramble will run from {{ scramble.pub_date.date }} to {{ scramble.end_date.date }}
     <div class="row">
       <div class="col-lg-6">
@@ -46,7 +57,10 @@
       </div>
       <div class="col-lg-6">
       <h3>Check the Scramble</h3>
-      <p>I recommend you check out a picture of the scramble at <a target="_blank" href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">alg.cubing.net</a> to make sure you didn't make any mistakes when you scrambled your own cube. Also, make sure to check your solution before submitting. If your solution does not solve the cube, your submission <b>will not</b> be counted!</p>
+      <p>If your cube doesn't match the picture, check out a full model of the scramble at <a target="_blank" href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">alg.cubing.net</a>.</p>
+      <h3>Solution Formatting</h3>
+      <p>The solution can include uppercase face moves (RLFBDU), wedge moves in both WCA notation (Rw,Lw,etc.) and SiGN notation (r,l,etc.), slice moves (MES), and cube rotations (xyz) separated by spaces <strong>or</strong> linebreaks. Slice moves count as 2 moves, cube rotations count as 0 moves, and all other moves count as 1 move. </p>
+
       </div>
     </div>  
 {% endblock %}
