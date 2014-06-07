@@ -3,15 +3,25 @@
 {% load url from future %}
 {% block title %}Weekly FMC - {{ profile_user.username }}'s Profile{% endblock %}
 {% block content %} 
-<div container> 
+<div class="container"> 
 <br>
-	<h2>{{ profile_user.username }}
-	{% if user == profile_user %}
-	<a href="{% url 'profile_edit' %}"><i class="fa fa-cog"></i></a>
-	{% endif %}
+  <div class="row">
+    <div class="col-lg-3">
+  	<h2>{{ profile_user.username }}
+  	{% if user == profile_user %}
+  	<a href="{% url 'profile_edit' %}"><i class="fa fa-cog"></i></a>
+  	{% endif %}
+  	</h2>
+    </div>
+    <div class="col-lg-5">
+    <h2>
+    Average Moves: {{ average_moves }}
+    </h2>
+    </div>
+    <div class="col-lg-4">
+    </div>
 
-
-	</h2>
+  </div>
     {% if submissions %}
       <table class="table table-striped">
       <thead>

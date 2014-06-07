@@ -47,6 +47,8 @@ def profile(request, user_id):
 	context['profile_user'] = profile_user
 	submissions = profile_user.submission_set.all().order_by('move_count')
 	completed_subs = [s for s in submissions if not s.scramble.current()]
+	average = reduce(lambda x,y: x+y, [s.move_count for s in completed_subs])/float(len(completed_subs))
+	context['average_moves'] = "{0:.2f}".format(average)
 	context['submissions'] = completed_subs
 	return render_to_response('profile.html', context)
 
