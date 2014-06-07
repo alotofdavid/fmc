@@ -4,11 +4,15 @@ import rubik
 import datetime
 from django.contrib.auth.models import User
 
+
+
 class Scramble(models.Model):
 	def current(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=7)
 	def end_date(self):
 		return self.pub_date + datetime.timedelta(days=7)
+	def inverse(self):
+		return rubik.Algorithm(self.scramble).invert()
 	def __unicode__(self):
 		return self.scramble;
 	scramble = models.CharField(max_length=200)

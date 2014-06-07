@@ -37,6 +37,11 @@ class Algorithm(object):
 		c.apply_alg(sol)
 		return c.solved()
 
+	def invert(self):
+		inverse_moves = []
+		for m in self.moves[::-1]: 
+			inverse_moves.append(m.invert())
+		return Algorithm(" ".join(inverse_moves))
 
 class Move(object):
 	def __init__(self,move):
@@ -62,7 +67,22 @@ class Move(object):
 				self.num = 2
 
 	def __repr__(self):
-		return self.letter + str(self.num)
+		if self.num == 1:
+			return self.letter
+		if self.num == 2:
+			return self.letter + "2"
+		if self.num == 3:
+			return self.letter + "'"
+
+	def invert(self):
+		inverse = ""
+		inverse += self.letter
+		if self.num == 1:
+			inverse += "'"
+		elif self.num == 2:
+			inverse += "2"
+		return inverse
+
 
 
 
@@ -228,5 +248,5 @@ def gen_scramble(l):
 
 if __name__ == "__main__":
 	c = Cube()
-
+	a = Algorithm("R U R'")
 
