@@ -13,6 +13,7 @@
   	{% endif %}
   	</h2>
     </div>
+    {% if completed_subs %}
     <div class="col-lg-5">
     <h2>
     Average Moves: {{ average_moves }}
@@ -20,7 +21,7 @@
     </div>
     <div class="col-lg-4">
     </div>
-
+    {% endif %}
   </div>
     {% if submissions %}
       <table class="table table-striped">
