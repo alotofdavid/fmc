@@ -38,9 +38,14 @@
         <tr>
           <td>{{ sub.ranking }}</td>
           <td>{{ sub.move_count }}</td>
-          <td>
-          
+          <td>          
           {% if sub.user %}
+          <a href="{% url 'profile' sub.user.id %}">{{ sub.name }}</a>
+          {% else %}
+          {{ sub.name }}
+          {% endif %}
+          </td>
+          <td>
           {% if sub.ranking < 4 %}
             {% if sub.ranking == 1 %}
             <i class="fa fa-trophy" style="color:gold"></i> 
@@ -52,12 +57,7 @@
             <i class="fa fa-trophy" style="color:brown"></i> 
             {% endif %}
           {% endif %}
-          <a href="{% url 'profile' sub.user.id %}">{{ sub.name }}</a>
-          {% else %}
-          {{ sub.name }}
-          {% endif %}
-          </td>
-          <td><a target="_blank" href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
+            <a target="_blank" href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
           <td>{{ sub.comments|linebreaks }}</td>
         </tr>
         {% endfor %}
