@@ -42,9 +42,6 @@ class Submission(models.Model):
 	def __unicode__(self):
 		return self.solution
 
-	gold = models.BooleanField()
-	silver = models.BooleanField()
-	bronze = models.BooleanField()
 	score = models.IntegerField()
 	ranking = models.IntegerField()
 	scramble = models.ForeignKey(Scramble)
