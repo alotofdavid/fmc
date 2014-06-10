@@ -6,7 +6,7 @@
 <div class="container"> 
 <br>
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-2">
   	<h2>{{ profile_user.username }}
   	{% if user == profile_user %}
   	<a href="{% url 'profile_edit' %}"><i class="fa fa-cog"></i></a>
@@ -14,12 +14,22 @@
   	</h2>
     </div>
     {% if submissions %}
-    <div class="col-lg-5">
+    <div class="col-lg-4">
     <h2>
     Average Moves: {{ average_moves }}
     </h2>
     </div>
+    <div class="col-lg-2">
+    <h2>
+    Score: {{ score }}
+    </h2>
+    </div>
     <div class="col-lg-4">
+    <h2>
+    <i class="fa fa-trophy" style="color:gold"></i>=3
+    <i class="fa fa-trophy" style="color:gray"></i>=2
+    <i class="fa fa-trophy" style="color:brown"></i>=1
+    </h2>
     </div>
     {% endif %}
   </div>
@@ -38,7 +48,19 @@
         {% if not sub.scramble.current %}
         <tr>
           <td>{{ sub.move_count }}</td>
-          <td><a href="{% url 'detail' sub.scramble.id %}">{{ sub.scramble }}</td>
+          <td><a href="{% url 'detail' sub.scramble.id %}">
+          {% if sub.ranking < 4 %}
+            {% if sub.ranking == 1 %}
+            <i class="fa fa-trophy" style="color:gold"></i> 
+            {% endif %}
+            {% if sub.ranking == 2 %}
+            <i class="fa fa-trophy" style="color:gray"></i> 
+            {% endif %}
+            {% if sub.ranking == 3 %}
+            <i class="fa fa-trophy" style="color:brown"></i> 
+            {% endif %}
+          {% endif %}
+            {{ sub.scramble }}</a></td>
           <td><a target="_blank" href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ sub.scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
           <td>{{ sub.comments|linebreaks }}</td>
         </tr>
