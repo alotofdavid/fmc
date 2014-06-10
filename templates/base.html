@@ -27,6 +27,9 @@ body {
 a:hover {
     text-decoration:none;
 }
+#content {
+  padding-bottom:150px;
+}
 </style>
 
 
@@ -62,8 +65,14 @@ a:hover {
     
   </div>
 </div>
-  <div class="container">
+  <div class="container" id="content">
   {% block content %} content area {% endblock %}
-  </div
+  </div>
+  <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <p class="navbar-text pull-center">© 2014 - Site Built By David Adams.
+      </p>
+    </div>    
+  </div>
 </body>
 
