@@ -24,7 +24,6 @@ class Scramble(models.Model):
 				curr_position += 1
 		#handle last index of array
 		position_dict[arr[len(arr)-1]] = curr_position
-		print(position_dict)
 		#TODO: store this dictionary in the database? I believe this runs in O(n) time so not a huge priority
 		for sub in arr:
 			position = position_dict[sub]
