@@ -55,10 +55,15 @@ def submit(request, scramble_id):
 	context['solution'] = sol
 	context['comments'] = comments
 
-	if User.objects.filter(username=name).count() and name != request.user.username:
-		context['name'] = ""
-		context['error_message'] = "That name is registered. Please <a href=\"/login/\">log in</a> or choose a different name!"
-		return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
+	if User.objects.filter(username=name).count():
+		if name != request.user.username:
+			context['name'] = ""
+			context['error_message'] = "That name is registered. Please <a href=\"/login/\">log in</a> or choose a different name!"
+			return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
+		if User.objects.filter(username=name)[0].submission_set.all().filter(pk=scramble_id).count():
+			context['error_message'] = "You have already submitted a solution to this scramble. Please wait until Sunday (PST) for the next scramble to be posted."
+			return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
+
 	if not sol or not name:
 		context['error_message'] = "Please complete all the fields."
 		return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
@@ -94,6 +99,25 @@ def results(request, scramble_id):
 	context['scramble'] = s
 	context['submissions'] = submissions
 	return render_to_response('fmc/results.html', context)
+
+#in the future i'd like to have a nice way to cache a list of the leaders that gets updated once a week when the scramble is closed. 
+def leaders(request):
+	context = {}
+	populateContext(request, context)
+	average_map = {}
+	score_map = {}
+	users = User.objects.all()
+	for u in users:
+		submissions = u.submission_set.all()
+		completed_subs = [s for s in submissions if not s.scramble.current()]
+		if (len(completed_subs) >= 3):
+			score = reduce(lambda x,y: x+y, [s.score for s in completed_subs])
+			average = reduce(lambda x,y: x+y, [s.move_count for s in completed_subs])/float(len(completed_subs))
+			average_map[u] = average
+			score_map[u] = score
+	context['score_map'] = sorted(score_map.iteritems(), key=lambda (k,v): (v,k), reverse=True)
+	context['average_map'] = sorted(average_map.iteritems(), key=lambda (k,v): (v,k))
+	return render_to_response('fmc/leaders.html', context)
 
 def populateContext(request, context):
 	context['authenticated'] = request.user.is_authenticated()

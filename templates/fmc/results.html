@@ -36,11 +36,22 @@
       <tbody>
         {% for sub in submissions %}
         <tr>
-          <td>{{ forloop.counter }}</td>
+          <td>{{ sub.ranking }}</td>
           <td>{{ sub.move_count }}</td>
           <td>
           
           {% if sub.user %}
+          {% if sub.ranking < 4 %}
+            {% if sub.ranking == 1 %}
+            <i class="fa fa-trophy" style="color:gold"></i> 
+            {% endif %}
+            {% if sub.ranking == 2 %}
+            <i class="fa fa-trophy" style="color:gray"></i> 
+            {% endif %}
+            {% if sub.ranking == 3 %}
+            <i class="fa fa-trophy" style="color:brown"></i> 
+            {% endif %}
+          {% endif %}
           <a href="{% url 'profile' sub.user.id %}">{{ sub.name }}</a>
           {% else %}
           {{ sub.name }}

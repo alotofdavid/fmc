@@ -48,6 +48,8 @@ def profile(request, user_id):
 	submissions = profile_user.submission_set.all().order_by('move_count')
 	completed_subs = [s for s in submissions if not s.scramble.current()]
 	if (completed_subs):
+		score = reduce(lambda x,y: x+y, [s.score for s in completed_subs])
+		context['score'] = score
 		average = reduce(lambda x,y: x+y, [s.move_count for s in completed_subs])/float(len(completed_subs))
 		context['average_moves'] = "{0:.2f}".format(average)
 	context['submissions'] = completed_subs
