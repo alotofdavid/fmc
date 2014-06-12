@@ -67,5 +67,11 @@
     {% else %}
       There we're no submissions for this challenge!
     {% endif %}
+    <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-2"><h2>{% if prev %}<a href="{% url 'detail' prev.id %}">{% endif %}<i class="fa fa-arrow-circle-left"></i> Prev{% if prev %}</a>{% endif %}</h2></div>
+    <div class="col-lg-2"><h2>{% if next %}<a href="{% url 'detail' next.id %}">{% endif %}Next <i class="fa fa-arrow-circle-right"></i>{% if next %}</a>{% endif %}</h2></div>
+    <div class="col-lg-4"></div>
+    </div>
   {% endif %}
 {% endblock %}

@@ -35,6 +35,20 @@ def detail(request, scramble_id):
 	if (request.user):
 		context['name'] = request.user.username
 	context['scramble'] = s
+	next_id = int(scramble_id) + 1
+	prev_id = int(scramble_id) - 1
+	next = None
+	prev = None
+	try:
+		prev = Scramble.objects.get(pk=prev_id)
+	except Scramble.DoesNotExist:
+		pass
+	try:
+		next = Scramble.objects.get(pk=next_id)
+	except Scramble.DoesNotExist:
+		pass
+	context['next'] = next
+	context['prev'] = prev 
 	if s.current():
 		return render_to_response('fmc/detail.html', context)
 	else:
@@ -95,9 +109,14 @@ def results(request, scramble_id):
 	context = {}
 	populateContext(request, context)
 	s = get_object_or_404(Scramble, pk=scramble_id)
+	prev = get_object_or_404(Scramble, pk=scramble_id-1)
+	next = get_object_or_404(Scramble, pk=scramble_id+1)
+	context['next'] = next
+	context['prev'] = prev 
 	submissions = s.submission_set.all().order_by('move_count')
 	context['scramble'] = s
 	context['submissions'] = submissions
+	print(prev)
 	return render_to_response('fmc/results.html', context)
 
 #in the future i'd like to have a nice way to cache a list of the leaders that gets updated once a week when the scramble is closed. 
