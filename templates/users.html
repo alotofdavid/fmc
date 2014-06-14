@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% block title %} Weekly FMC - Users {% endblock %}
+
+
+{% block content %}
+
+<h2>Users</h2>
+<table class="table table-condensed table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for u in users %}
+    <tr>
+      <td><a href="{% url 'profile' u.id %}">{{ u.id }}</a>
+      </td>
+      <td><a href="{% url 'profile' u.id %}">{{ u.username }}</a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

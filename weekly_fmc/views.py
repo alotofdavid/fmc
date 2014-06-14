@@ -115,6 +115,14 @@ def register(request):
 def register_success(request):
 	return render_to_response('register_success.html')
 
+def users(request):
+	context = {}
+	context.update(csrf(request))
+	populateContext(request,context)
+	users = User.objects.all().order_by('id')
+	context['users'] = users
+	return render_to_response('users.html', context)
+
 def populateContext(request, context):
 	context['authenticated'] = request.user.is_authenticated()
 	if context['authenticated'] == True:

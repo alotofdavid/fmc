@@ -7,12 +7,12 @@
 {% block content %}
 
   <div class="jumbotron text-center">
-    <div class="container">
+    <div class="container" style="margin-left:-40px;">
       <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-11">
           <h1><a target="_blank" href="http://www.alg.cubing.net/?alg={{ scramble.scramble }}&view=playback">{{ scramble.scramble }}</a></h1>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-1">
           <img src="http://cube.crider.co.uk/visualcube.php?bg=t&fmt=png&size=150&sch=wrgyob&pzl=3&alg={{ scramble.scramble }}">
         </div>
       </div>
@@ -47,8 +47,10 @@
             {% if sub.ranking == 3 %}
             <i class="fa fa-trophy" style="color:brown"></i> 
             {% endif %}
+          {% else %}
+            {{ sub.ranking }}
           {% endif %}
-            {{ sub.ranking }}</td>
+          </td>
           <td>{{ sub.move_count }}</td>
           <td>          
           {% if sub.user %}
@@ -68,10 +70,8 @@
       There we're no submissions for this challenge!
     {% endif %}
     <div class="row">
-    <div class="col-lg-4"></div>
-    <div class="col-lg-2"><h2>{% if prev %}<a href="{% url 'detail' prev.id %}">{% endif %}<i class="fa fa-arrow-circle-left"></i> Prev{% if prev %}</a>{% endif %}</h2></div>
-    <div class="col-lg-2"><h2>{% if next %}<a href="{% url 'detail' next.id %}">{% endif %}Next <i class="fa fa-arrow-circle-right"></i>{% if next %}</a>{% endif %}</h2></div>
-    <div class="col-lg-4"></div>
+    <div class="col-lg-6 col-xs-6"><span style="float:right"><h2>{% if prev %}<a href="{% url 'detail' prev.id %}">{% endif %}<i class="fa fa-arrow-circle-left"></i> Prev{% if prev %}</a>{% endif %}</h2></span></div>
+    <div class="col-lg-6 col-xs-6"><h2>{% if next %}<a href="{% url 'detail' next.id %}">{% endif %}Next <i class="fa fa-arrow-circle-right"></i>{% if next %}</a>{% endif %}</h2></div>
     </div>
   {% endif %}
 {% endblock %}

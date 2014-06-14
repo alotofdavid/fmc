@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% block title %} Weekly FMC - Archives {% endblock %}
+
+
+{% block content %}
+
+<h2>Previous Scrambles:</h2>
+{% if latest_scrambles %}
+    <table class="table table-condensed table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Scramble</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for scramble in latest_scrambles %} 
+        <tr>
+          <td><a href="{% url 'detail' scramble.id %}">{{ scramble.id }}</a>
+          </td>
+          <td><a href="{% url 'detail' scramble.id %}">{{ scramble.scramble }}</a>
+          </td>
+        </tr>
+      {% endfor %} 
+      </tbody>
+    </table>
+{% else %}
+    <p>No scrambles have been posted.</p>
+{% endif %}
+
+{% endblock %}
