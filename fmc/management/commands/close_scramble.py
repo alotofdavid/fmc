@@ -6,5 +6,8 @@ from django.shortcuts import get_object_or_404
 
 class Command(BaseCommand): 
     def handle(self, *args, **options):
-		s = get_object_or_404(Scramble, pk=args[0])
+		if len(args)>0:
+			s = get_object_or_404(Scramble, pk=args[0])
+		else:
+			s = Scramble.objects.all().order_by('-pub_date')[0]
 		s.rank()
