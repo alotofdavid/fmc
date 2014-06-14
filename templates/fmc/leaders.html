@@ -7,11 +7,37 @@
 {% block content %}
     <div class="container">
       <br>
-      <h1>Leaders (Minimum 3 entries required)</h1>
+      <h1>Leaders</h1>
       <div class="row">
 
+        <div class="col-lg-12">
+        <h2>Shortest Solutions</h2>
+        <table class="table table-condensed table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Move Count</th>
+            <th>Scramble ID</th>
+            <th>Solution</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for sub in best_subs %} 
+          <tr>
+            <td>{% if sub.user %}<a href="{% url 'profile' sub.user.id %}">{{ sub.name }}</a>{% else %}{{ sub.name }}{% endif %}</td>
+            <td>{{ sub.move_count }}</td>
+            <td><a href="{% url 'detail' sub.scramble.id %}">{{ sub.scramble.id }}</a></td>
+            <td><a href="{% url 'detail' sub.scramble.id %}">{{ sub.solution }}</a></td>
+          </tr>
+        {% endfor %} 
+        </tbody>
+        </table>
+        </div>
+      </div>
+      <h2>Minimum 3 entries required for User Leaderboards</h2>
+      <div class="row">
         <div class="col-lg-6">
-          <h2>Average Moves</h2>
+          <h2>Lowest Average Moves</h2>
       <table class="table table-condensed table-bordered table-striped table-hover">
       <thead>
         <tr>
@@ -30,7 +56,7 @@
       </table>
       </div>
       <div class="col-lg-6">
-        <h2>Score</h2>
+        <h2>Best Score</h2>
       <table class="table table-condensed table-bordered table-striped table-hover">
       <thead>
         <tr>
@@ -48,6 +74,7 @@
       </tbody>
       </table>
     </div>
-    </div>
+  </div>
+</div>
 
 {% endblock %}

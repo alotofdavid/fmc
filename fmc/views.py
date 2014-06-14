@@ -75,7 +75,7 @@ def submit(request, scramble_id):
 			context['error_message'] = "That name is registered. Please <a href=\"/login/\">log in</a> or choose a different name!"
 			return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
 		if User.objects.filter(username=name)[0].submission_set.all().filter(pk=scramble_id).count():
-			context['error_message'] = "You have already submitted a solution to this scramble. Please wait until Sunday (PST) for the next scramble to be posted."
+			context['error_message'] = "You have already submitted a solution to this scramble. Please wait until Sunday for the next scramble to be posted."
 			return render_to_response('fmc/detail.html', context, context_instance=RequestContext(request))
 
 	if not sol or not name:
@@ -136,7 +136,20 @@ def leaders(request):
 			score_map[u] = score
 	context['score_map'] = sorted(score_map.iteritems(), key=lambda (k,v): (v,k), reverse=True)
 	context['average_map'] = sorted(average_map.iteritems(), key=lambda (k,v): (v,k))
+	submissions = Submission.objects.all().order_by('move_count')
+	completed_subs = [s for s in submissions if not s.scramble.current()]
+	context['best_subs'] = completed_subs[:10]
 	return render_to_response('fmc/leaders.html', context)
+
+def archives(request):
+	context = {}
+	context.update(csrf(request))
+	populateContext(request,context)
+	latest_scrambles = Scramble.objects.all().order_by('-pub_date')[1:]
+	context['latest_scrambles'] = latest_scrambles
+	print(latest_scrambles)
+	return render_to_response('fmc/archives.html', context)
+
 
 def populateContext(request, context):
 	context['authenticated'] = request.user.is_authenticated()

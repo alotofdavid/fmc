@@ -12,10 +12,10 @@
         <div class="jumbotron text-center">
         <div class="container">
           <div row>
-            <div class="col-lg-10">
+            <div class="col-lg-11" style="margin-left:-40px;">
               <h1><a href="{% url 'detail' scramble.id %}">{{ scramble.scramble }}</a></h1>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-1">
               <img src="http://cube.crider.co.uk/visualcube.php?bg=t&fmt=png&size=150&sch=wrgyob&pzl=3&alg={{ scramble.scramble }}">
             </div>
           </div>
@@ -24,15 +24,22 @@
         <div class = "container">
         <div class="row"><div class="col-lg-6"><h2>What is the Weekly FMC?</h2>
         <p>The Weekly FMC was made for <a target="_blank" href="http://www.speedsolving.com">the SpeedSolving.com web forums</a> so that fewest moves enthusiasts can regularly compete with others and share solutions to the same scramble in order to learn from each other. Click the scramble to submit a solution!</p>
-        <p>Although it is not required to submit a solution, <a href="{% url 'register' %}">creating an account</a> allows you to reserve a name. Creating accounts will also create a profile for you that lists all of your submissions. </p>
+        <p>Although it is not required to submit a solution, <a href="{% url 'register' %}">creating an account</a> will let the Weekly FMC record your results into a profile and provide you with statistics. The <a href="{% url 'leaders' %}">leaders board</a> lists all time shortest solutions along with the users with the lowest average move count and highest total score.</p>
+        <p>
+        So what are you waiting for? <a href="{% url 'detail' scramble.id %}">Submit a solution</a> to this week's scramble. 
+        </p>
+        <h3>How do I learn more about FMC?</h3>
+        <p>The <a target="_blank" href="http://www.speedsolving.com/wiki/index.php/FMC">SpeedSolving Wiki</a> has a good description and collection of links about FMC. I recommend checking out <a target="_blank" href="http://www.speedsolving.com/forum/showthread.php?1566">this post</a> by Arnaud van Galen and <a target="_blank" href="https://duckduckgo.com/">searching</a> for any terms you're unfamiliar with. Finally, the <a target="_blank" href="http://www.speedsolving.com/forum/showthread.php?13599-The-FMC-thread">FMC thread</a> is the best place to go to share FMC attempts and get advice on techniques. Just make sure to search for an answer to your question before posting because it probably has been answered before. 
+        </p>
         </div>
         <div class="col-lg-6">
-        <h2>Previous Scramble Results:</h2>
+        <h2>Recent Scrambles:</h2>
         <ul class="list-group">
     {% else %}
         <li class="list-group-item"><a href="{% url 'detail' scramble.id %}">{{ scramble.scramble }}</a></li>
     {% endif %}
 {% endfor %}
+<li class="list-group-item list-group-item-info"><a href="{% url 'archives' %}">Click here for full list of previous scrambles</a></li>
 </ul>
 </div>
 </div></div>
