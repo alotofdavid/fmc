@@ -5,21 +5,19 @@
 {% block content %} 
 <div class="container"> 
 <br>
+  <h2>{{ profile_user.username }}
+    {% if user == profile_user %}
+    <a href="{% url 'profile_edit' %}"><i class="fa fa-cog"></i></a>
+    {% endif %}
+    </h2>
   <div class="row">
-    <div class="col-lg-2">
-  	<h2>{{ profile_user.username }}
-  	{% if user == profile_user %}
-  	<a href="{% url 'profile_edit' %}"><i class="fa fa-cog"></i></a>
-  	{% endif %}
-  	</h2>
-    </div>
     {% if submissions %}
     <div class="col-lg-4">
     <h2>
     Average Moves: {{ average_moves }}
     </h2>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-4">
     <h2>
     Score: {{ score }}
     </h2>
