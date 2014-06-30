@@ -23,7 +23,10 @@
   {% if not scramble.current %}
     <h3>Results - This scramble ran from {{ scramble.pub_date.date }} to {{ scramble.end_date.date }}.</h3>
     {% if submissions %}
-      <table class="table table-condensed table-bordered table-striped table-hover">
+        {% if participated %}
+        Thanks for participating in this week's challenge. Now that the competition is over, discuss your solution in the <a href="http://www.speedsolving.com/forum/showthread.php?13599-The-FMC-thread">FMC thread.</a>  
+        {% endif %}
+    <table class="table table-condensed table-bordered table-striped table-hover">
       <thead>
         <tr>
           <th>#</th>

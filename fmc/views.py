@@ -54,6 +54,7 @@ def detail(request, scramble_id):
 	else:
 		submissions = s.submission_set.all().order_by('move_count')
 		context['submissions'] = submissions
+		context['participated'] = request.user in [s.user for s in submissions]
 		return render_to_response('fmc/results.html', context)
 
 def submit(request, scramble_id):
@@ -90,7 +91,7 @@ def submit(request, scramble_id):
 				sub = Submission(solution=sol, name=name,scramble_id=scramble_id, comments=comments, move_count=move_count)
 				sub.save()
 				
-				if (name == request.user.username):
+				if (request.user):
 					sub.user_id = request.user.id
 					sub.save()	
 
@@ -116,7 +117,7 @@ def results(request, scramble_id):
 	submissions = s.submission_set.all().order_by('move_count')
 	context['scramble'] = s
 	context['submissions'] = submissions
-	print(prev)
+	print(submissions)
 	return render_to_response('fmc/results.html', context)
 
 #in the future i'd like to have a nice way to cache a list of the leaders that gets updated once a week when the scramble is closed. 
