@@ -31,9 +31,10 @@
         <tr>
           <th>#</th>
           <th>Move Count</th>
-          <th>Username</th>
-          <th>Solution</th>
-          <th>Comments</th>
+          <th class="col-sm-1">Username</th>
+          <th class="col-sm-4">Solution</th>
+          <th class="col-sm-2"><a target="_blank" href="https://github.com/larspetrus/Roofpig">Roofpig</a></th>
+          <th class="col-sm-4">Comments</th>
         </tr>
       </thead>
       <tbody>
@@ -64,6 +65,9 @@
           </td>
           <td>
             <a target="_blank" href="http://alg.cubing.net/?alg={{ sub.solution }}&setup={{ scramble.scramble }}&view=playback">{{ sub.solution|linebreaks }}</a></td>
+           <td>
+          <div class=roofpig data-config="alg={{ sub.sol_one_line }}|colors=F:g B:b U:w D:y R:r L:o"></div>
+          </td>
           <td>{{ sub.comments|linebreaks }}</td>
         </tr>
         {% endfor %}

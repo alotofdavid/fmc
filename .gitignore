@@ -38,3 +38,4 @@ nosetests.xml
 settings.py
 db.sqlite3
 dadams
+*.json
