@@ -39,7 +39,14 @@ class Scramble(models.Model):
 
 class Submission(models.Model):
 	def sol_one_line(self):
-		return ' '.join(self.solution.split())
+		sol = ' '.join(self.solution.split())
+		sol = sol.replace("u","Uw")
+		sol = sol.replace("d","Dw")
+		sol = sol.replace("l","Lw")
+		sol = sol.replace("r","Rw")
+		sol = sol.replace("f","Fw")
+		sol = sol.replace("b","Bw")
+		return sol
 	def __unicode__(self):
 		return self.solution
 
