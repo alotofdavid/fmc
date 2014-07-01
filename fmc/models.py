@@ -38,6 +38,8 @@ class Scramble(models.Model):
 	#end_date = timezone.now() + datetime.timedelta(days=7)
 
 class Submission(models.Model):
+	def sol_one_line(self):
+		return ' '.join(self.solution.split())
 	def __unicode__(self):
 		return self.solution
 
