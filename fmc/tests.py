@@ -7,7 +7,7 @@ class ScrambleTestCase(TestCase):
 	def setUp(self):
 		Scramble.objects.create(scramble="R U R' U'", pub_date=timezone.now())
 
-	def test_animals_can_speak(self):
+	def test_algorithms(self):
 		"""Tests algorithm creation and inversion. """
 		s = Scramble.objects.get(scramble="R U R' U'")
 		self.assertTrue(valid_alg(s.scramble))
