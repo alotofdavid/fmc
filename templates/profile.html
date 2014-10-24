@@ -5,32 +5,24 @@
 {% block content %} 
 <div class="container"> 
 <br>
-  <h2>{{ profile_user.username }}
+	  <h2>{{ profile_user.username }}
     {% if user == profile_user %}
     <a href="{% url 'profile_edit' %}"><i class="fa fa-cog"></i></a>
     {% endif %}
     </h2>
-  <div class="row">
-    {% if submissions %}
-    <div class="col-lg-4">
-    <h2>
-    Average Moves: {{ average_moves }}
-    </h2>
-    </div>
-    <div class="col-lg-4">
-    <h2>
-    Score: {{ score }}
-    </h2>
-    </div>
-    <div class="col-lg-4">
-    <h2>
-    <i class="fa fa-trophy" style="color:gold"></i>=3
-    <i class="fa fa-trophy" style="color:gray"></i>=2
-    <i class="fa fa-trophy" style="color:brown"></i>=1
-    </h2>
-    </div>
-    {% endif %}
-  </div>
+	{% if submissions %}
+	<div class="well">
+		<b>Average Moves:</b> {{ average_moves }}
+			<br>
+	    <b>Score:</b> {{ score }}
+			{% if currmo3 %}
+			<br>
+			<b>Current Mean of 3:</b> {{ currmo3 }} ({{ currmean1 }}, {{ currmean2 }}, {{ currmean3 }})
+			<br>
+			<b>Best Mean of 3:</b> {{ bestmo3 }} ({{ bestmean1 }}, {{ bestmean2 }}, {{ bestmean3 }})
+			{% endif %}
+	</div>
+	{% endif %}
     {% if submissions %}
       <table class="table table-striped">
       <thead>

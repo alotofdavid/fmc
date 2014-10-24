@@ -135,8 +135,8 @@ def leaders(request):
 			average = reduce(lambda x,y: x+y, [s.move_count for s in completed_subs])/float(len(completed_subs))
 			average_map[u] = average
 			score_map[u] = score
-	context['score_map'] = sorted(score_map.iteritems(), key=lambda (k,v): (v,k), reverse=True)
-	context['average_map'] = sorted(average_map.iteritems(), key=lambda (k,v): (v,k))
+	context['score_map'] = sorted(score_map.iteritems(), key=lambda (k,v): (v,k), reverse=True)[:10]
+	context['average_map'] = sorted(average_map.iteritems(), key=lambda (k,v): (v,k))[:10]
 	submissions = Submission.objects.all().order_by('move_count')
 	completed_subs = [s for s in submissions if not s.scramble.current()]
 	context['best_subs'] = completed_subs[:10]

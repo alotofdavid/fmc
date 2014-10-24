@@ -41,18 +41,41 @@ def logout(request):
 def profile(request, user_id):
 	context = {}
 	populateContext(request, context)
+
 	if not User.objects.filter(id=user_id).count():
 		return render_to_response('profile_404.html', context)
+
 	profile_user = User.objects.filter(id=user_id)[0]
 	context['profile_user'] = profile_user
-	submissions = profile_user.submission_set.all().order_by('move_count')
-	completed_subs = [s for s in submissions if not s.scramble.current()]
-	if (completed_subs):
-		score = reduce(lambda x,y: x+y, [s.score for s in completed_subs])
+	unordered = profile_user.submission_set.all()
+	unordered = [s for s in unordered if not s.scramble.current()]
+	unordered.reverse()
+
+	if (unordered):
+
+		score = reduce(lambda x,y: x+y, [s.score for s in unordered])
 		context['score'] = score
-		average = reduce(lambda x,y: x+y, [s.move_count for s in completed_subs])/float(len(completed_subs))
+		average = reduce(lambda x,y: x+y, [s.move_count for s in unordered])/float(len(unordered))
 		context['average_moves'] = "{0:.2f}".format(average)
-	context['submissions'] = completed_subs
+
+		if len(unordered) > 2: 
+			currmo3 = reduce(lambda x,y: x+y, [s.move_count for s in unordered[0:3]])/float(3)
+			context['currmo3'] = "{0:.2f}".format(currmo3)
+			context['currmean1'] = unordered[0].move_count
+			context['currmean2'] = unordered[1].move_count
+			context['currmean3'] = unordered[2].move_count
+			bestmo3 = 1000000
+
+			for i in range(0,len(unordered)-3):
+				testmo3 = reduce(lambda x,y: x+y, [s.move_count for s in unordered[i:i+3]])/float(3)
+				if testmo3 < bestmo3:
+					context['bestmean1'] = unordered[i].move_count
+					context['bestmean2'] = unordered[i+1].move_count
+					context['bestmean3'] = unordered[i+2].move_count
+					bestmo3 = testmo3
+			context['bestmo3'] = "{0:.2f}".format(bestmo3)
+
+	context['submissions'] = unordered
 	return render_to_response('profile.html', context)
 
 def profile_edit(request):
