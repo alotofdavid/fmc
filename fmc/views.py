@@ -121,6 +121,7 @@ def results(request, scramble_id):
 	return render_to_response('fmc/results.html', context)
 
 #in the future i'd like to have a nice way to cache a list of the leaders that gets updated once a week when the scramble is closed. 
+# TODO take 186 and learn databases
 def leaders(request):
 	context = {}
 	populateContext(request, context)
